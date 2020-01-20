@@ -10,7 +10,7 @@ const Container = props => {
 
   useEffect(() => {
     fetchData();
-  });
+  }, [counter]);
 
   const fetchData = () => {
     axios

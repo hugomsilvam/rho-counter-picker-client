@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CounterClick from "./CounterClick";
 import axios from "axios";
+import { backendDomain } from "../../config";
 
 const Container = props => {
   const [counter, setCounter] = useState(0);
-  
-  // TODO - move this
-  const serviceEndpoint = "http://localhost:8080/counter"
+
+  const serviceEndpoint = backendDomain + "/counter";
 
   useEffect(() => {
     fetchData();

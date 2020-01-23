@@ -3,6 +3,7 @@ const styles = () => ({
         display: 'block',
     },
     card: {
+        marginTop: 10,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

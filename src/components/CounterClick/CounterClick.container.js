@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from "react";
 import CounterClick from "./CounterClick";
 import axios from "axios";
-import { backendDomain } from "../../config";
+import { backendDomain, websocketDomain } from "../../config";
+
+const serviceEndpoint = backendDomain + "/counter";
+const webSocketEndpoint = websocketDomain + "/bananas";
+
+console.log("ws endpoint", webSocketEndpoint);
+
+const ws = new WebSocket(webSocketEndpoint);
 
 const Container = props => {
   const [counter, setCounter] = useState(0);
 
-  const serviceEndpoint = backendDomain + "/counter";
-
   useEffect(() => {
     fetchData();
+
+    ws.onmessage = eve => {
+      console.log("---", eve.data);
+      setCounter(eve.data);
+    };
+    ws.onopen = () => {
+      console.log("opening websocket...");
+    };
+    ws.onerror = err => {
+      console.error("webSocket error ", err);
+    };
+  
+    ws.onclose = eve => {
+      console.log('on close foi cos pitos event ',eve)
+    }
+
   }, [counter]);
 
   const fetchData = () => {
